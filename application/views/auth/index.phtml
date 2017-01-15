@@ -1,0 +1,36 @@
+<?php
+/**
+ * Files contains view for Auth Controller
+ *
+ * Used to show login form with error messages
+ *
+ * @package Socialreach
+ * @subpackage Test
+ * @author Denis Uraganov <info@uraganov.net>
+ * @copyright 2010 Denis Uraganov
+ * @version 1.0.0
+ */
+ ?>
+<div class="span-10 prepend-2 append-2">
+	<form id="dummy" method="post" action="">
+        <?php if (isset($this->view->error)):?>
+		<div class="error">
+        	<?php echo $this->view->error?>
+		</div>
+        <?php endif;?>
+    	<fieldset>
+    		<legend>Login Form</legend>
+    		<p>
+    			<label for="username">Username:</label>
+    			<input id="username" class="text" type="text" value="" name="username"/>
+    		</p>
+    		<p>
+    			<label for="password">Password:</label>
+    			<input id="password" class="text" type="password" value="" name="password"/>
+    		</p>
+    		<p class="span-2 prepend-6 ">
+    			<input name="login" type="Submit" value="Login"/>
+    		</p>
+    	</fieldset>
+	</form>
+</div>

@@ -1,0 +1,80 @@
+<?php
+/**
+ * Files contains view for action manage of the Contact Controller
+ *
+ * Contains html code of the form to add new contact or update existing.
+ *
+ * @package Socialreach
+ * @subpackage Test
+ * @author Denis Uraganov <info@uraganov.net>
+ * @copyright 2010 Denis Uraganov
+ * @version 1.0.0
+ */
+?>
+<?php
+$formValues = $this->view->formValues;
+$formErrors = $this->view->formErrors;
+?>
+<form id="dummy" method="post" action="">
+<?php if (!empty($formErrors)):?>
+	<div class="error">
+        <?php echo implode('<br/>',$formErrors)?>
+	</div>
+<?php endif;?>
+
+<fieldset>
+	<legend><?php echo $this->view->pageTitle?> Form</legend>
+	<p>
+		<label for="contactFirstName">First Name:</label>
+		<input id="contactFirstName" class="text" type="text"
+			   value="<?php echo htmlentities(stripslashes($formValues['contactFirstName']))?>"
+			   name="contactFirstName" maxlength="60" />
+	</p>
+	<p>
+		<label for="contactLastName">Last Name:</label>
+		<input id="contactLastName" class="text"
+			   type="text" value="<?php echo stripslashes($formValues['contactLastName'])?>"
+				name="contactLastName" maxlength="60" />
+	</p>
+	<p>
+		<label for="locationCity">City:</label>
+		<input id="locationCity" class="text"
+			   type="text" value="<?php echo stripslashes($formValues['locationCity'])?>"
+			   name="locationCity" maxlength="100" />
+	</p>
+	<p>
+		<label for="locationState">State:</label>
+		<select class="text" name="locationState">
+			<option value=""></option>
+            <?php foreach($this->view->states as $key => $value):?>
+			<option value="<?php echo $key?>"
+                <?php echo ($formValues['locationState']==$key)?' selected="selected"':''?>
+			><?php echo "$key - $value"?>
+			</option>
+            <?php endforeach;?>
+		</select>
+	</p>
+	<p>
+		<label for="contactZipCode">ZipCode:</label>
+		<input id="contactZipCode" class="text"
+			   type="text" value="<?php echo stripslashes($formValues['contactZipCode'])?>"
+			   name="contactZipCode" maxlength="10" />
+	</p>
+	<p>
+		<label for="interests">Interests:</label>
+		<input id="interests" class="text"
+			   type="text" value="<?php echo stripslashes($formValues['interests'])?>"
+	           name="interests" />
+	</p>
+	<p class="span-2 prepend-6 ">
+		<input name="actionCase" type="submit" value="Save" />
+	    <?php if ($formValues['contactId']):?>
+		<input name="actionCase" type="submit" value="Delete" />
+	    <?php endif;?>
+	</p>
+	<input type="hidden" name="controller" value="contact" />
+	<input type="hidden" name="action" value="manage" />
+	<input type="hidden" name="token" value="<?php echo $formValues['token'] ?>" />
+	<input type="hidden" name="contactId" value="<?php echo $formValues['contactId'] ?>" />
+</fieldset>
+</form>

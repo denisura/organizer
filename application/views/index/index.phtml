@@ -1,0 +1,75 @@
+<?php
+/**
+ * Files contains view for action Index of the Index Controller
+ *
+ * Contains contacts table with pagination. Shows the total number of all contacts
+ *
+ * @package Socialreach
+ * @subpackage Test
+ * @author Denis Uraganov <info@uraganov.net>
+ * @copyright 2010 Denis Uraganov
+ * @version 1.0.0
+ */
+
+//pagination
+$page = $this->view->page;
+$count = $this->view->count;
+$totalPages = ceil (($this->view->contacts['total']/$count));
+$contacts = $this->view->contacts['data'];
+$i = 0;
+
+if (($page>1)){
+    $pagination['first'] = '<a href="?page=1&count='.$count.'">first</a>';
+}
+if (($page-1)>1){
+    $pagination['prev'] = '<a href="?page=' . ($page - 1) . '&count='.$count.'">prev</a>';
+}
+if (($page+1)<$totalPages){
+    $pagination['next'] = '<a href="?page='.($page+1).'&count='.$count.'">next</a>';
+}
+if ($page<$totalPages){
+    $pagination['last'] = '<a href="?page='.$totalPages.'&count='.$count.'">last</a>';
+}
+$paginationString = (!empty($pagination))?implode(' | ', $pagination):'';
+?>
+The total number of your contacts:
+<strong><?php echo $this->view->contacts['total']?></strong>
+<br />
+
+<?php if (!empty($contacts)):?>
+    <?php echo $paginationString;?>
+    <table>
+    	<tr>
+    		<th style="width: 180px;">Last Name, First Name</th>
+    		<th style="width: 185px;">Location</th>
+    		<th style="width: 50px;">Zipcode</th>
+    		<th>Interests</th>
+    	</tr>
+    <?php foreach($contacts as $contact):$i++?>
+    <tr <?php echo ($i%2)?' style="background-color:#ccc;"':''?>>
+    		<td><a
+    			href="/?controller=contact&id=<?php echo htmlentities($contact->getContactId())?>">
+    <?php echo htmlentities($contact->getContactLastName())?>,
+    <?php echo htmlentities($contact->getContactFirstName())?>
+    </a> <span class='action'>( <a
+    			href="?controller=contact&action=manage&id=<?php echo htmlentities($contact->getContactId())?>">
+    		Edit </a> ) </span></td>
+    		<td>
+    		<?php if (strlen($contact->getLocationCity())):?>
+                <?php echo htmlentities($contact->getLocationCity())?>,
+                <?php echo htmlentities($contact->getLocationState())?>
+            <?php endif;?>
+    		</td>
+    		<td>
+                 <?php echo htmlentities($contact->getContactZipCode())?>
+    		</td>
+    		<td>
+    <?php echo htmlentities(implode(', ',$contact->getInterests()))?>
+    </td>
+    	</tr>
+    <?php endforeach;?>
+    </table>
+    <?php echo $paginationString?>
+<?php else:?>
+No record found
+<?php endif;?>

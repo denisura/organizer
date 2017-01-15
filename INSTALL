@@ -1,0 +1,19 @@
+Installation:
+------------------------------------------------------------------------------
+DOMAIN
+Domain should point to '/public' folder
+
+DATABASE
+1. Create database use /scripts/schema.mysql.sql
+2. Add function and grant user permission /scripts/functions.mysql.sql
+3. Populate database with data /scripts/functions.mysql.sql
+
+CONFIGURATION:
+1. Set environment in .htaccess. Default development
+	# SetEnv APPLICATION_ENV production
+
+2. Set configuration parameters for each configuration:
+	1. Open configuration file /application/configs/production.application.ini
+	2. Set database parameters
+	3. Set flickr api_key
+	4. Set cache directory

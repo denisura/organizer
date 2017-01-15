@@ -1,0 +1,42 @@
+<?php
+/**
+ * Files contains view for action Index of the Contact Controller
+ *
+ * Contains html code to show contact information.
+ * Images loaded in dedicated area using Ajax request after page loaded
+ *
+ * @package Socialreach
+ * @subpackage Test
+ * @author Denis Uraganov <info@uraganov.net>
+ * @copyright 2010 Denis Uraganov
+ * @version 1.0.0
+ */
+?>
+<?php
+$contact = $this->view->contact;
+$interests = $contact->getInterests();
+if (!empty($interests)){
+    foreach ($interests as &$interest){
+        $interest = '<span class="tag">'.htmlentities($interest).'</span>';
+	}
+}
+?>
+
+<div class="span-6">
+<span class='action'>(
+    <a href="?controller=contact&action=manage&id=<?php echo htmlentities($contact->getContactId())?>">
+    	Edit
+    </a> )
+</span>
+<p> First name: <?php echo htmlentities($contact->getContactFirstName())?></p>
+<p> Last name: <?php echo htmlentities($contact->getContactLastName())?></p>
+<p> City: <?php echo htmlentities($contact->getLocationCity())?></p>
+<p> State: <?php echo htmlentities($contact->getLocationState())?></p>
+<p> Zipcode: <?php echo htmlentities($contact->getContactZipCode())?></p>
+<p> Interests: <?php echo implode(', ',$interests)?>
+</p>
+</div>
+<hr/>
+<div id="photos">
+Loading...
+</div>

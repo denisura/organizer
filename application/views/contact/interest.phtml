@@ -1,0 +1,19 @@
+<?php
+/**
+ * Files contains view for action interest of the Contact Controller
+ *
+ * Contains html code to show interests images.
+ *
+ * @package Socialreach
+ * @subpackage Test
+ * @author Denis Uraganov <info@uraganov.net>
+ * @copyright 2010 Denis Uraganov
+ * @version 1.0.0
+ */
+?>
+<?php
+if (! empty($this->view->photos)) {
+    foreach ($this->view->photos as $photo) {
+        echo '<img src="' . $photo['url_s'] . '" alt="' . htmlentities($photo['title']) . '">';
+    }
+}

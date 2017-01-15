@@ -1,0 +1,1 @@
+$(document).ready(function(){if($('span.tag').size()>0){var a=$('span.tag').get().sort(function(){return Math.round(Math.random())-0.5}).slice(0,1);$("#photos").load("index.php?controller=contact&action=interest&tag="+$(a).text())}else if($('#photos').size()>0){$('#photos').empty()}});
